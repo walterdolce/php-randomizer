@@ -1,0 +1,23 @@
+{
+    "name": "walterdolce/php-randomizer",
+    "description": "Randomizer PHP module interface used to randomize things through user defined strategy classes.",
+    "keywords": ["php", "random", "module", "randomizer", "strategy"],
+    "license":"MIT",
+    "authors": [
+        {
+            "name": "Walter Dolce",
+            "email": "walterdolce@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "phpunit/phpunit": "3.7.*",
+        "phpmd/phpmd" : "1.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "walterdolce\\": "src/"
+        }
+    }
+}
