@@ -28,6 +28,7 @@ class MtRandTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProvider()
     {
+        $double = (\mt_getrandmax() + 1);
         return [
             [0.0,0.0],
             ["\n","\n"],
@@ -37,7 +38,8 @@ class MtRandTest extends \PHPUnit_Framework_TestCase
             ['0','0'],
             ['1','1'],
             [new \stdClass(), new \stdClass()],
-            [null,null]
+            [null,null],
+            [$double,$double]
         ];
     }
 
@@ -81,21 +83,13 @@ class MtRandTest extends \PHPUnit_Framework_TestCase
         $this->_mtRand->setData($min, $max);
     }
 
-    /**
-     * @throws \InvalidArgumentException
-     * @expectedException \InvalidArgumentException
-     */
     public function test_MtRand_should_return_data_correctly()
     {
-        $mtRand =  $this->_mtRand;
-        $mtRand_max = \mt_getrandmax();
-        $this->assertEquals(true, \is_array($mtRand->getData()));
-        $this->assertEquals(0, $mtRand->randomize());
-        $this->assertEquals(1, $mtRand->setData(1,1)->randomize());
-        $this->assertEquals([1,1], $mtRand->setData(1,1)->getData());
-        $this->assertEquals([2,1], $mtRand->setData(2,1)->getData());
-        $this->assertEquals([$mtRand_max,$mtRand_max], $mtRand->setData($mtRand_max,$mtRand_max+1)->getData());
-        $this->assertEquals([$mtRand_max,$mtRand_max], $mtRand->setData($mtRand_max+1,$mtRand_max+1)->getData());
+        $this->assertEquals(true, \is_array($this->_mtRand->getData()));
+        $this->assertEquals(0, $this->_mtRand->randomize());
+        $this->assertEquals(1, $this->_mtRand->setData(1,1)->randomize());
+        $this->assertEquals([1,1], $this->_mtRand->setData(1,1)->getData());
+        $this->assertEquals([2,1], $this->_mtRand->setData(2,1)->getData());
     }
 
 }
