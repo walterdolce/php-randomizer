@@ -28,7 +28,8 @@ class MtRandTest extends \PHPUnit_Framework_TestCase
      */
     public function dataProvider()
     {
-        $double = (\mt_getrandmax() + 1);
+        $double = (mt_getrandmax() + 1);
+        $double = is_int($double) ? null : $double;
         return [
             [0.0,0.0],
             ["\n","\n"],
