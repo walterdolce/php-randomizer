@@ -6,4 +6,4 @@ Randomizer PHP module interface used to randomize things through user defined st
 
 Issues
 ------
-Please report issues [here on GitHub](https://github.com/walterdolce/php-randomizer/issues here on GitHub "Click here to report an issue").
+Please report issues [here on GitHub](https://github.com/walterdolce/php-randomizer/issues "Click here to report an issue").
