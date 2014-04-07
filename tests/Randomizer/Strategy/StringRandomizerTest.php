@@ -23,11 +23,37 @@ class StringRandomizerTest extends \PHPUnit_Framework_TestCase
     protected $_stringRandomizer;
 
     /**
-     * @expectedException \PHPUnit_Framework_Error_Warning
+     * @provides test_method_setData_must_throw_exception_when_data_is_not_string
+     *
+     * @return array
      */
-    public function test_native_str_shuffle_should_emit_warning()
+    public function incorrect_values_data_provider()
     {
-        \is_string(\str_shuffle(new \stdClass()));
+        return [
+            [1],[0.0],[0],[true],[false],[new \stdClass()],[null]
+        ];
+    }
+
+    public function setUp()
+    {
+        set_error_handler(function($errno, $errstr, $errfile, $errline) {
+                throw new \InvalidArgumentException($errstr . " on line " . $errline . " in file " . $errfile);
+            });
+
+        $this->_stringRandomizer = new StringRandomizer();
+    }
+
+    public function tearDown()
+    {
+        \restore_error_handler();
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function test_native_str_shuffle_should_emit_warning_with_object_passed_as_value()
+    {
+        \str_shuffle(new \stdClass());
     }
 
     public function test_native_str_shuffle_should_return_string()
@@ -60,24 +86,16 @@ class StringRandomizerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(true);
     }
 
-    public function setUp()
-    {
-        $this->_stringRandomizer = new StringRandomizer();
-    }
-
     /**
-     * @provides test_method_setData_must_throw_exception_when_data_is_not_string
-     *
-     * @return array
+     * @param $data
+     * @dataProvider incorrect_values_data_provider
      */
-    public function dataProvider()
+    public function test_native_is_string_returns_false_with_non_string_data($data)
     {
-        return [
-            [1],[0.0],[0],[true],[false],[new \stdClass()],[null]
-        ];
+        $this->assertFalse(\is_string($data));
     }
 
-    public function test_method_is_randomizable_returns_correct_value()
+    public function test_method_isRandomizable_returns_correct_value()
     {
         $this->assertTrue($this->_stringRandomizer->isRandomizable(''));
     }
@@ -97,17 +115,8 @@ class StringRandomizerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $data
-     * @dataProvider dataProvider
-     */
-    public function test_native_is_string_returns_false_with_non_string_data($data)
-    {
-        $this->assertFalse(\is_string($data));
-    }
-
-    /**
      * @expectedException \InvalidArgumentException
-     * @dataProvider dataProvider
+     * @dataProvider incorrect_values_data_provider
      */
     public function test_method_setData_throws_exception_with_non_string_data($data)
     {

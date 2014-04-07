@@ -2,4 +2,5 @@
 analisys/
 composer.phar
 coverage/
+scrutinizer.phar
 vendor/

@@ -2,9 +2,9 @@
 <phpunit
         bootstrap="./vendor/autoload.php"
         colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true">
+        convertErrorsToExceptions="false"
+        convertNoticesToExceptions="false"
+        convertWarningsToExceptions="false">
     <testsuites>
         <testsuite>
             <directory>./tests</directory>
@@ -15,7 +15,6 @@
             <directory>./vendor</directory>
         </blacklist>
     </filter>
-    <!--
     <logging>
         <log
                 charset="UTF-8"
@@ -26,5 +25,4 @@
                 type="coverage-html"
                 />
     </logging>
-    -->
 </phpunit>
